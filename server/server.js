@@ -743,6 +743,7 @@ let needSetup = false;
                 bean.dns_resolve_type = monitor.dns_resolve_type;
                 bean.dns_resolve_server = monitor.dns_resolve_server;
                 bean.pushToken = monitor.pushToken;
+                bean.cron = monitor.cron;
                 bean.docker_container = monitor.docker_container;
                 bean.docker_host = monitor.docker_host;
                 bean.proxyId = Number.isInteger(monitor.proxyId) ? monitor.proxyId : null;
@@ -1415,6 +1416,7 @@ let needSetup = false;
                                 dns_resolve_type: monitorListData[i].dns_resolve_type,
                                 dns_resolve_server: monitorListData[i].dns_resolve_server,
                                 notificationIDList: monitorListData[i].notificationIDList,
+                                cron: monitorListData[i].cron,
                                 proxy_id: monitorListData[i].proxy_id || null,
                             };
 

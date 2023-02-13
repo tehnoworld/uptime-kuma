@@ -72,6 +72,7 @@
         "sort-contributors": "node extra/sort-contributors.js"
     },
     "dependencies": {
+        "@breejs/later": "^4.1.0",
         "@grpc/grpc-js": "~1.7.3",
         "@louislam/ping": "~0.4.4-mod.1",
         "@louislam/sqlite3": "15.1.6",

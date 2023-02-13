@@ -66,6 +66,7 @@
     "Resend Notification if Down X times consecutively": "Resend Notification if Down X times consecutively",
     "Advanced": "Advanced",
     "checkEverySecond": "Check every {0} seconds",
+    "checkDefinedCron": "Check defined by cron {0}",
     "retryCheckEverySecond": "Retry every {0} seconds",
     "resendEveryXTimes": "Resend every {0} times",
     "resendDisabled": "Resend disabled",
@@ -801,5 +802,7 @@
     "nostrRecipients": "Recipients Public Keys (npub)",
     "nostrRecipientsHelp": "npub format, one per line",
     "showCertificateExpiry": "Show Certificate Expiry",
-    "noOrBadCertificate": "No/Bad Certificate"
+    "noOrBadCertificate": "No/Bad Certificate",
+    "Cron": "Cron scheduler",
+    "cronDescription": "Schedule the monitor using a cron expression, overrides Heartbeat Interval"
 }

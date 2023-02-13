@@ -2,6 +2,7 @@ const fs = require("fs");
 const { R } = require("redbean-node");
 const { setSetting, setting } = require("./util-server");
 const { log, sleep } = require("../src/util");
+const dayjs = require("dayjs");
 const knex = require("knex");
 const path = require("path");
 
@@ -80,6 +81,7 @@ class Database {
         "patch-add-certificate-expiry-status-page.sql": true,
         "patch-monitor-oauth-cc.sql": true,
         "patch-add-timeout-monitor.sql": true,
+        "patch-monitor-active-cron.sql": true,
     };
 
     /**
