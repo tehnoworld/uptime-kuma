@@ -58,6 +58,7 @@
     "Resend Notification if Down X times consequently": "Resend Notification if Down X times consecutively",
     "Advanced": "Advanced",
     "checkEverySecond": "Check every {0} seconds",
+    "checkDefinedCron": "Check defined by cron {0}",
     "retryCheckEverySecond": "Retry every {0} seconds",
     "resendEveryXTimes": "Resend every {0} times",
     "resendDisabled": "Resend disabled",
@@ -695,5 +696,7 @@
     "Google Analytics ID": "Google Analytics ID",
     "Edit Tag": "Edit Tag",
     "Server Address": "Server Address",
-    "Learn More": "Learn More"
+    "Learn More": "Learn More",
+    "Cron": "Cron scheduler",
+    "cronDescription": "Schedule the monitor using a cron expression, overrides Heartbeat Interval"
 }

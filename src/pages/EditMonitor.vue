@@ -322,6 +322,15 @@
                                 <input id="interval" v-model="monitor.interval" type="number" class="form-control" required :min="minInterval" step="1" :max="maxInterval">
                             </div>
 
+                            <!-- Cron -->
+                            <div class="my-3">
+                                <label for="cron" class="form-label">{{ $t("Cron") }}</label>
+                                <input id="cron" v-model="monitor.cron" type="text" class="form-control" :pattern="cronRegex" maxlength="99">
+                                <div class="form-text">
+                                    {{ $t("cronDescription") }}
+                                </div>
+                            </div>
+
                             <div class="my-3">
                                 <label for="maxRetries" class="form-label">{{ $t("Retries") }}</label>
                                 <input id="maxRetries" v-model="monitor.maxretries" type="number" class="form-control" required min="0" step="1">
@@ -658,6 +667,8 @@ export default {
             ipOrHostnameRegexPattern: hostNameRegexPattern(),
             mqttIpOrHostnameRegexPattern: hostNameRegexPattern(true),
             gameList: null,
+            // Source: https://stackoverflow.com/questions/14203122/create-a-regular-expression-for-cron-statement/19046939
+            cronRegex: "^((((\\d+,)+\\d+|(\\d+(\\/|-|#)\\d+)|\\d+L?|\\*(\\/\\d+)?|L(-\\d+)?|\\?|[A-Z]{3}(-[A-Z]{3})?) ?){5,7})$|(@(annually|yearly|monthly|weekly|daily|hourly|reboot))|(@every (\\d+(ns|us|µs|ms|s|m|h))+)",
         };
     },
 
@@ -872,6 +883,7 @@ message HealthCheckResponse {
                     mqttTopic: "",
                     mqttSuccessMessage: "",
                     authMethod: null,
+                    cron: "",
                 };
 
                 if (this.$root.proxyList && !this.monitor.proxyId) {

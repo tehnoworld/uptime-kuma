@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <HeartbeatBar :monitor-id="monitor.id" />
-                        <span class="word">{{ $t("checkEverySecond", [ monitor.interval ]) }}</span>
+                        <span class="word">{{ $t(monitor.cron ? "checkDefinedCron" : "checkEverySecond", [ monitor.cron ? monitor.cron : monitor.interval ]) }}</span>
                     </div>
                     <div class="col-md-4 text-center">
                         <span class="badge rounded-pill" :class=" 'bg-' + status.color " style="font-size: 30px;">{{ status.text }}</span>

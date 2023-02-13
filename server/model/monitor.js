@@ -13,6 +13,7 @@ const { Proxy } = require("../proxy");
 const { demoMode } = require("../config");
 const version = require("../../package.json").version;
 const apicache = require("../modules/apicache");
+const later = require("@breejs/later");
 const { UptimeKumaServer } = require("../uptime-kuma-server");
 const { CacheableDnsHttpAgent } = require("../cacheable-dns-http-agent");
 const { DockerHost } = require("../docker");
@@ -98,6 +99,7 @@ class Monitor extends BeanModel {
             proxyId: this.proxy_id,
             notificationIDList,
             tags: tags,
+            cron: this.cron,
             maintenance: await Monitor.isUnderMaintenance(this.id),
             mqttTopic: this.mqttTopic,
             mqttSuccessMessage: this.mqttSuccessMessage,
@@ -207,7 +209,7 @@ class Monitor extends BeanModel {
 
         const beat = async () => {
 
-            let beatInterval = this.interval;
+            let beatInterval = this.getNextInterval();
 
             if (! beatInterval) {
                 beatInterval = 1;
@@ -788,11 +790,28 @@ class Monitor extends BeanModel {
         if (this.type === "push") {
             setTimeout(() => {
                 safeBeat();
-            }, this.interval * 1000);
+            }, this.getNextInterval() * 1000);
         } else {
             safeBeat();
         }
     }
+
+    getNextInterval() {
+        if (!this.cron || /^\s*$/.test(this.cron)) {
+            return this.interval;
+        }
+        const laterCron = later.parse.cron(this.cron, true);
+        const nextOccurences = later.schedule(laterCron).next(2);
+
+        let calculatedInterval = Math.floor((nextOccurences[0].getTime() - Date.now()) / 1000);
+        if (calculatedInterval < 20) { //beat interval too low,  using next interval
+            calculatedInterval = Math.floor((nextOccurences[1].getTime() - Date.now()) / 1000);
+        }
+
+        console.log(`Monitor #${this.id} '${this.name}': getNextInterval - calculatedInterval: ${calculatedInterval} `);
+        return calculatedInterval;
+    }
+
 
     /**
      * Make a request using axios

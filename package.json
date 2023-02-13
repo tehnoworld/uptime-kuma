@@ -67,6 +67,7 @@
         "depoly-demo-server": "node extra/deploy-demo-server.js"
     },
     "dependencies": {
+        "@breejs/later": "^4.1.0",
         "@grpc/grpc-js": "~1.7.3",
         "@louislam/ping": "~0.4.2-mod.1",
         "@louislam/sqlite3": "15.1.2",
