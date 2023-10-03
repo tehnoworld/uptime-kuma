@@ -24,6 +24,21 @@ const Gamedig = require("gamedig");
 const jsonata = require("jsonata");
 const jwt = require("jsonwebtoken");
 
+function setTimeoutSafe(fn, delay) {
+    let maxDelay = Math.pow(2, 31) - 1;
+
+    if (delay > maxDelay) {
+        let args = arguments;
+        args[1] -= maxDelay;
+
+        return setTimeout(function () {
+            setTimeoutSafe.apply(undefined, args);
+        }, maxDelay);
+    }
+
+    return setTimeout.apply(undefined, arguments);
+}
+
 /**
  * status:
  *      0 = DOWN
@@ -994,7 +1009,7 @@ class Monitor extends BeanModel {
 
         // Delay Push Type
         if (this.type === "push") {
-            setTimeout(() => {
+            setTimeoutSafe(() => {
                 safeBeat();
             }, this.getNextInterval() * 1000);
         } else {
